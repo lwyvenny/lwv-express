@@ -12,7 +12,7 @@ router.get('/create',(req,res) =>{
 router.post('/store', async (req,res) =>{
     // 1.获取form 表单，前端传递过来的参数
     let username = req.body.username;
-    let password = req.body.password;
+    let password = req.body.password; 
     let email = req.body.email;
     // 2.对参数做一些校验
     if(!username || !password || !email){
@@ -54,6 +54,7 @@ router.post('/store', async (req,res) =>{
 // 登录页面
 router.get('/login',(req,res) =>{
     res.render('login');
+    
 })
 
 //登录操作
@@ -61,7 +62,7 @@ router.post('/login',async(req,res) =>{
     let email = req.body.email;
     let password = req.body.password;
     if(!email || !password){
-        res.send("用户名或密码错误")
+        res.send("用户名或密码错误");
         return;
     }
     let user = await UserModel.findOne({email:email});
@@ -76,11 +77,11 @@ router.post('/login',async(req,res) =>{
         res.send("用户名或密码错误");
         return;
     }
-
+    let redirect = req.query.redirect || "/posts";
     //登录成功
     req.session.user = user;
 
-    res.redirect('/posts');
+    res.redirect(redirect);
 
 })
 

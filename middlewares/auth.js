@@ -3,7 +3,7 @@
 const auth = () =>{
     return (req,res,next) =>{
         if(!req.session.user){
-            res.redirect('/use/login');
+            res.redirect(`/use/login?redirect=${req.originalUrl}`);
         }else{
             next();
         }
